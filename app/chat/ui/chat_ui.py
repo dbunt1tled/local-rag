@@ -31,7 +31,6 @@ class ChatUI:
                 file_service=file_service
             )
 
-            # Информация о функциях
             st.subheader("🔧 Chat Available:")
             st.markdown("""
             - 📎 Upload PDF files
