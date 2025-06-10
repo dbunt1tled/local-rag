@@ -1,0 +1,238 @@
+[project]
+name = "python-rag-api"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Denis Balagov",email = "db.unt1tled@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13,<4.0"
+dependencies = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+    "python-multipart>=0.0.6",
+]
+[tool.ruff]
+target-version = "py38"
+line-length = 120
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+]
+
+[tool.ruff.per-file-ignores]
+"tests/*" = ["S101", "PLR2004", "ANN"]
+"__init__.py" = ["F401"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.black]
+line-length = 120
+target-version = ['py38']
+
+[tool.mypy]
+python_version = "3.13"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pylint]
+py-version = "3.13.4"
+jobs = 0
+suggestion-mode = true
+
+[tool.pylint.main]
+analyse-fallback-blocks = false
+clear-cache-post-run = false
+extension-pkg-allow-list = []
+extension-pkg-whitelist = []
+fail-under = 8.0
+ignore = ["CVS", ".git", "__pycache__", ".pytest_cache"]
+ignore-paths = [
+    "^tests/.*$",
+    "^migrations/.*$",
+    "^venv/.*$",
+    "^.venv/.*$"
+]
+ignore-patterns = ["test_.*\\.py$"]
+ignored-modules = []
+init-hook = ""
+jobs = 1
+limit-inference-results = 100
+load-plugins = [
+    "pylint.extensions.check_elif",
+    "pylint.extensions.bad_builtin",
+    "pylint.extensions.docparams",
+    "pylint.extensions.for_any_all",
+    "pylint.extensions.set_membership",
+    "pylint.extensions.code_style",
+    "pylint.extensions.overlapping_exceptions",
+    "pylint.extensions.typing",
+    "pylint.extensions.redefined_variable_type",
+    "pylint.extensions.comparison_placement",
+]
+persistent = true
+source-roots = ["src", "."]
+unsafe-load-any-extension = false
+
+[tool.pylint.messages_control]
+disable = [
+    "raw-checker-failed",
+    "bad-inline-option",
+    "locally-disabled",
+    "file-ignored",
+    "suppressed-message",
+    "useless-suppression",
+    "deprecated-pragma",
+    "use-symbolic-message-instead",
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "line-too-long",
+    "fixme",
+    "import-outside-toplevel",
+    "too-few-public-methods",
+    "duplicate-code",
+    "argument-naming-style",
+    "attribute-naming-style",
+    "variable-naming-style",
+    "method-naming-style",
+    "module-naming-style",
+    "function-naming-style",
+]
+
+enable = [
+    "c-extension-no-member",
+    "useless-suppression",
+]
+
+[tool.pylint.reports]
+evaluation = "max(0, 0 if fatal else 10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10))"
+msg-template = "{path}:{line}:{column}: {msg_id}: {msg} ({symbol})"
+reports = false
+score = true
+
+[tool.pylint.refactoring]
+max-nested-blocks = 5
+never-returning-functions = ["sys.exit", "argparse.parse_error"]
+
+[tool.pylint.basic]
+argument-naming-style = "snake_case"
+attr-naming-style = "snake_case"
+bad-names = ["foo", "bar", "baz", "toto", "tutu", "tata"]
+bad-names-rgxs = []
+class-attribute-naming-style = "any"
+class-const-naming-style = "UPPER_CASE"
+class-naming-style = "PascalCase"
+const-naming-style = "UPPER_CASE"
+docstring-min-length = -1
+function-naming-style = "snake_case"
+good-names = ["i", "j", "k", "ex", "Run", "_", "id", "pk", "db", "df", "ax", "fig"]
+good-names-rgxs = []
+include-naming-hint = false
+inlinevar-naming-style = "any"
+method-naming-style = "snake_case"
+module-naming-style = "snake_case"
+no-docstring-rgx = "^_"
+property-classes = ["abc.abstractproperty"]
+variable-naming-style = "snake_case"
+
+[tool.pylint.format]
+expected-line-ending-format = "LF"
+ignore-long-lines = "^\\s*(# )?<?https?://\\S+>?$"
+indent-after-paren = 4
+indent-string = "    "
+max-line-length = 120
+max-module-lines = 5000
+single-line-class-stmt = false
+single-line-if-stmt = false
+
+[tool.pylint.logging]
+logging-format-style = "new"
+logging-modules = ["logging"]
+
+[tool.pylint.miscellaneous]
+notes = ["FIXME", "XXX", "TODO"]
+
+[tool.pylint.similarities]
+ignore-comments = true
+ignore-docstrings = true
+ignore-imports = true
+ignore-signatures = true
+min-similarity-lines = 4
+
+[tool.pylint.spelling]
+max-spelling-suggestions = 4
+spelling-ignore-comment-directives = "fmt: off,fmt: on,noqa:,noqa,nosec,isort:skip,mypy:"
+
+[tool.pylint.string]
+check-quote-consistency = false
+check-str-concat-over-line-jumps = false
+
+[tool.pylint.typecheck]
+contextmanager-decorators = ["contextlib.contextmanager"]
+generated-members = []
+ignore-none = true
+ignore-on-opaque-inference = true
+ignored-checks-for-mixins = ["no-member", "not-async-context-manager", "not-context-manager", "attribute-defined-outside-init"]
+ignored-classes = ["optparse.Values", "thread._local", "_thread._local", "argparse.Namespace"]
+missing-member-hint = true
+missing-member-hint-distance = 1
+missing-member-max-choices = 1
+mixin-class-rgx = ".*[Mm]ixin"
+signature-mutators = []
+
+[tool.pylint.variables]
+additional-builtins = []
+allow-global-unused-variables = true
+allowed-redefined-builtins = []
+callbacks = ["cb_", "_cb"]
+dummy-variables-rgx = "_+$|(_[a-zA-Z0-9_]*[a-zA-Z0-9]+?$)|dummy|^ignored_|^unused_"
+ignored-argument-names = "_.*|^ignored_|^unused_"
+init-import = false
+redefining-builtins-modules = ["six.moves", "past.builtins", "future.builtins", "builtins", "io"]
+
+[tool.pylint.classes]
+check-protected-access-in-special-methods = false
+defining-attr-methods = ["__init__", "__new__", "setUp", "asyncSetUp", "__post_init__"]
+exclude-protected = ["_asdict", "_fields", "_replace", "_source", "_make", "os._exit"]
+valid-classmethod-first-arg = ["cls"]
+valid-metaclass-classmethod-first-arg = ["mcs"]
+
+[tool.pylint.design]
+exclude-too-few-public-methods = []
+ignored-parents = []
+max-args = 7
+max-attributes = 10
+max-bool-expr = 5
+max-branches = 15
+max-locals = 20
+max-parents = 7
+max-public-methods = 25
+max-returns = 6
+max-statements = 50
+min-public-methods = 1
+
+[tool.pylint.exceptions]
+overgeneral-exceptions = ["BaseException", "Exception"]
+
+[tool.pylint.imports]
+allow-any-import-level = []
+allow-wildcard-with-all = false
+deprecated-modules = []
+ext-import-graph = ""
+import-graph = ""
+int-import-graph = ""
+known-standard-library = []
+known-third-party = ["enchant"]
+preferred-modules = []
