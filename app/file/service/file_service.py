@@ -4,8 +4,8 @@ import uuid
 from dataclasses import dataclass
 from typing import Sequence
 
-from langchain_core.documents import Document
 from langchain_community.document_loaders import UnstructuredPDFLoader
+from langchain_core.documents import Document
 from langchain_core.vectorstores import VectorStore
 from langchain_text_splitters import TextSplitter
 from pdf2image import convert_from_bytes
