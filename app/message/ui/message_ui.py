@@ -1,12 +1,12 @@
 import uuid
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 from app.ai.service.ai_service import AIService
 from app.message.dto.message_enum import MessageType
 from app.message.dto.message_schema import MessageCreate
 from app.message.service.message_service import MessageService
-import streamlit.components.v1 as components
 
 
 class MessageUI:
