@@ -26,15 +26,15 @@ prompt_template = ChatPromptTemplate.from_messages(
 
 query_prompt = PromptTemplate(
     input_variables=["question"],
-    template="""You are an AI language model assistant. Your task is to generate five
-        different versions of the given user question to retrieve relevant documents from
+    template="""You are an AI language model assistant and an expert extraction algorithm. Your task is to generate five
+        different versions of the given user question to retrieve and extract relevant documents and information from
         a vector database. By generating multiple perspectives on the user question, your
         goal is to help the user overcome some of the limitations of the distance-based
         similarity search. Provide these alternative questions separated by newlines.
         Original question: {question}""",
 )
 
-template = """Answer the question based ONLY on the following context:
+template = """Answer the question should be short, only to the point, without any additional information and only based ONLY on the following context:
     {context}
     Question: {question}
     """
@@ -47,7 +47,7 @@ class AIService:
         self.db = vector_store
         self.file_service = file_service
 
-    async def query(self, query: str, chat_id: uuid.UUID) -> str | None:
+    async def query_alternative(self, query: str, chat_id: uuid.UUID) -> str | None:
         documents = await self.file_service.search_documents(query=query, chat_id=chat_id)
         data = "\n\n".join(doc.page_content for doc in documents)
         prompt = prompt_template.invoke({"text": query, "data": data})
@@ -55,7 +55,7 @@ class AIService:
 
         return LLMResponse.model_validate(llm_result).answer if llm_result else None
 
-    async def query1(self, query: str, chat_id: uuid.UUID) -> str | None:
+    async def query(self, query: str, chat_id: uuid.UUID) -> str | None:
         prompt =  ChatPromptTemplate.from_template(template)
         file_ids = await self.file_service.find_files_ids(chat_id=chat_id)
         base_retriever = self.db.as_retriever(

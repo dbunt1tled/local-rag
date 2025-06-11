@@ -6,6 +6,7 @@ from app.ai.service.ai_service import AIService
 from app.message.dto.message_enum import MessageType
 from app.message.dto.message_schema import MessageCreate
 from app.message.service.message_service import MessageService
+import streamlit.components.v1 as components
 
 
 class MessageUI:
@@ -33,7 +34,7 @@ class MessageUI:
             )
             st.session_state.input_key += 1
             with st.spinner("writing..."):
-                answer = await ai_service.query1(query=prompt, chat_id=chat_id)
+                answer = await ai_service.query(query=prompt, chat_id=chat_id)
                 await message_service.create(
                     chat_create=MessageCreate(
                         text=answer if answer is not None else "I don't know",
@@ -42,17 +43,17 @@ class MessageUI:
                     )
                 )
             st.rerun()
-        st.markdown("""
+        components.html("""
         <script>
-        function scrollToBottom() {
-            var messagesContainer = document.querySelector('.messages-container');
-            if (messagesContainer) {
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            function scrollToBottom() {
+                var messagesContainer = parent.document.querySelector('.messages-container');
+                if (messagesContainer) {
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
             }
-        }
-        setTimeout(scrollToBottom, 100);
+            setTimeout(scrollToBottom, 300);
         </script>
-        """, unsafe_allow_html=True)
+        """, height=0, width=0)
 
     @staticmethod
     async def list_html(
@@ -119,7 +120,7 @@ class MessageUI:
                     height: 45vh;
                     overflow-y: auto;
                     padding: 10px;
-                    background: linear-gradient(to bottom, #f0f8ff, #e6f3ff);
+                    background: rgb(38, 39, 48);
                     border-radius: 10px;
                     margin-bottom: 20px;
                     border: 1px solid #e0e0e0;
@@ -156,10 +157,10 @@ class MessageUI:
                 }
 
                 .message-bubble.other {
-                    background: white;
-                    color: #333;
+                    background: #333;
+                    color: #ccc;
                     border-bottom-left-radius: 4px;
-                    border: 1px solid #e0e0e0;
+                    border: 1px solid #222;
                     margin-left: 10px;
                 }
 
