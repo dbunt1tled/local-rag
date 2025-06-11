@@ -34,7 +34,7 @@ query_prompt = PromptTemplate(
         Original question: {question}""",
 )
 
-template = """Answer the question should be short, only to the point, without any additional information and only based ONLY on the following context:
+template = """Answer the question should be short, only to the point, without any additional information and based ONLY on the following context:
     {context}
     Question: {question}
     """
